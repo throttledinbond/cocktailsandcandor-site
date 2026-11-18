@@ -81,7 +81,11 @@ footer{font-size:12.5px;color:var(--muted);line-height:1.6;text-align:center}
 
   <div class="rule" role="presentation"></div>
 
-  <form id="feature" class="form" novalidate>
+  <form id="feature" class="form" action="https://formsubmit.co/info@cocktailsandcandor.com" method="POST" novalidate>
+    <input type="hidden" name="_subject" id="subj" value="Feature request">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://cocktailsandcandor.com/feature/thanks/">
     <fieldset>
       <legend>You</legend>
       <div class="row">
@@ -113,8 +117,8 @@ footer{font-size:12.5px;color:var(--muted);line-height:1.6;text-align:center}
 
     <fieldset>
       <legend>What you'd like <b>*</b></legend>
-      <label class="check"><input type="checkbox" name="Interested in" value="Feature our cocktails on the show"> <span>Feature our cocktails on the show</span></label>
-      <label class="check"><input type="checkbox" name="Interested in" value="Host an episode on-site at our venue"> <span>Host an episode on-site at our venue</span></label>
+      <label class="check"><input type="checkbox" name="Feature our cocktails" value="Yes"> <span>Feature our cocktails on the show</span></label>
+      <label class="check"><input type="checkbox" name="Host an episode on-site" value="Yes"> <span>Host an episode on-site at our venue</span></label>
       <div class="f"><label for="msg">Tell us about your venue</label>
         <textarea id="msg" name="Message" rows="5" placeholder="Signature cocktails, the space, best days and times to record"></textarea></div>
     </fieldset>
@@ -125,42 +129,24 @@ footer{font-size:12.5px;color:var(--muted);line-height:1.6;text-align:center}
     <p class="fine">We read every request and reply within a few days. 21+ venues only.</p>
   </form>
 
-  <div class="done" id="done" hidden>
-    <h2>Request received</h2>
-    <p>Thanks. We'll be in touch at the email you gave us. Questions in the meantime: <span class="sel">info@cocktailsandcandor.com</span></p>
-    <a class="btn" href="/">Back to the home page</a>
-  </div>
-
   <footer>Craft cocktails &amp; straight talk · 21+ · Please enjoy responsibly.<br>© 2026 Cocktails &amp; Candor</footer>
 </main>
 
 <script>
 const form=document.getElementById('feature'),err=document.getElementById('err'),send=document.getElementById('send');
-form.addEventListener('submit',async e=>{
-  e.preventDefault();err.hidden=true;
+form.addEventListener('submit',e=>{
+  err.hidden=true;
   const missing=[...form.querySelectorAll('[required]')].filter(i=>!i.value.trim()).map(i=>form.querySelector(`label[for=${i.id}]`).firstChild.textContent.trim());
-  const email=form.email.value.trim();
-  const wants=[...form.querySelectorAll('input[name="Interested in"]:checked')].map(c=>c.value);
+  const wants=form.querySelectorAll('.check input:checked').length;
   let msg='';
   if(missing.length)msg='Please fill in: '+missing.join(', ')+'.';
-  else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))msg='Please check your email address.';
-  else if(!wants.length)msg='Choose at least one option under What you\'d like.';
-  if(msg){err.textContent=msg;err.hidden=false;return;}
-  const data=Object.fromEntries(new FormData(form));
-  data['Interested in']=wants.join('; ');
-  data._subject='Feature request: '+data['Venue / Company']+' ('+data.City+')';
-  data._template='table';data._captcha='false';
+  else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email.value.trim()))msg='Please check your email address.';
+  else if(!wants)msg='Choose at least one option under What you\'d like.';
+  if(msg){e.preventDefault();err.textContent=msg;err.hidden=false;err.scrollIntoView({block:'center'});return;}
+  document.getElementById('subj').value='Feature request: '+form.company.value.trim()+' ('+form.city.value.trim()+')';
   send.disabled=true;send.textContent='Sending…';
-  try{
-    const r=await fetch('https://formsubmit.co/ajax/info@cocktailsandcandor.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)});
-    const j=await r.json().catch(()=>({}));
-    if(!r.ok||String(j.success)==='false')throw new Error(j.message||'send failed');
-    form.hidden=true;document.getElementById('done').hidden=false;window.scrollTo({top:0,behavior:'smooth'});
-  }catch(x){
-    err.textContent='Your request didn\'t go through. Please try again, or email us at info@cocktailsandcandor.com.';err.hidden=false;
-    send.disabled=false;send.textContent='Send Request';
-  }
 });
+window.addEventListener('pageshow',()=>{send.disabled=false;send.textContent='Send Request';});
 </script>
 </body>
 </html>
