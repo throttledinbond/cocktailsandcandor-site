@@ -36,6 +36,9 @@ body{background:var(--bg);color:var(--bone);font-family:var(--body);-webkit-font
 .kicker{font-family:var(--type);font-size:14px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin:0}
 h1{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,8vw,68px);line-height:1;margin:0;letter-spacing:.01em}
 .lede{font-size:17px;line-height:1.6;max-width:58ch;margin:4px auto 0;text-wrap:pretty}
+.lede .tagline{display:block;text-wrap:balance;font-family:var(--type);letter-spacing:.06em;margin-bottom:8px}
+.lede a{color:var(--bone);text-decoration:underline;text-decoration-style:dashed;text-underline-offset:4px;text-decoration-thickness:1.5px}
+.lede a:hover,.lede a:focus-visible{text-decoration-style:solid;outline:none}
 .rule{width:min(420px,80%);height:1.5px;background-image:repeating-linear-gradient(90deg,var(--dash) 0 6px,transparent 6px 10px)}
 .hosts{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:48px}
 @media (max-width:720px){.hosts{grid-template-columns:1fr;gap:56px}.kicker{letter-spacing:.16em}}
@@ -64,7 +67,7 @@ footer{font-size:12.5px;color:var(--muted);line-height:1.6;text-align:center}
   <section class="intro">
     <p class="kicker">Craft Cocktails &amp; Straight Talk</p>
     <h1>The Hosts</h1>
-    <p class="lede">Cocktails &amp; Candor is hosted by David and Amy, the founders of THROTTLED Spirits. The cocktails are crafted. The opinions are not.</p>
+    <p class="lede"><span class="tagline">Cocktails &amp; Candor — The cocktails are crafted. The opinions are not.</span>Hosted by David and Amy, the founders of <a href="https://www.throttledspirits.com" target="_blank" rel="noopener">THROTTLED Spirits</a>, a whiskey brand built on The Spirit of American Muscle™.</p>
   </section>
 
   <div class="rule" role="presentation"></div>
@@ -73,14 +76,14 @@ footer{font-size:12.5px;color:var(--muted);line-height:1.6;text-align:center}
     <article class="host">
       <div class="disc"><img src="/hosts/david.jpg" width="640" height="640" alt="David in sunglasses, leaning on a classic Mustang"></div>
       <h2>David</h2>
-      <p class="role">Co-host · Founder, THROTTLED Spirits</p>
+      <p class="role">Founding Co-Host</p>
       <p class="bio">David is an entrepreneur, operator, and co-founder of THROTTLED Spirits. Fueled by rebel culture and built to run loud, he brings the horsepower to every conversation and <s>never</s> rarely apologizes for where he stands.</p>
     </article>
     <article class="host">
       <div class="disc"><img src="/hosts/amy.jpg" width="640" height="640" alt="Amy sipping a whiskey in a black wide-brim hat"></div>
       <h2>Amy</h2>
-      <p class="role">Co-host · Founder, THROTTLED Spirits</p>
-      <p class="bio">Amy West has spent nearly two decades covering travel and hospitality, from hotel bars to the back rooms where the real stories get told. She is the author of two travel books, has appeared as a contributor on national television, and co-founded THROTTLED Spirits, a whiskey brand built on the spirit of American muscle. Behind the mic, Amy calls it like she sees it, pours it like she means it, and makes sure nobody gets the last word without earning it.</p>
+      <p class="role">Founding Co-Host</p>
+      <p class="bio">Amy West has covered travel and hospitality for nearly two decades, from hotel bars to back rooms, where the real stories get told. She has authored two travel books, appeared as a contributor on national television, and co-founded THROTTLED Spirits. Behind the mic, Amy calls it like she sees it, pours it like she means it, and makes sure nobody gets the last word without earning it.</p>
     </article>
   </section>
 
